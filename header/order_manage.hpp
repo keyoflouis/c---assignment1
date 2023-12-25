@@ -2,7 +2,7 @@
 #include<vector>
 #include"order.hpp"
 #include"file.hpp"
-
+#include"keyboard.hpp"
 using namespace std;
 
 class order_manage
@@ -14,10 +14,11 @@ public:
     order_manage(/* args */);
     ~order_manage();
 
-    bool add_order(file*,order);
-    void show_orders(file*);
-    bool remov_order(file*,order_sequance );
-    bool modify_order(file *fl, order_sequance numb,keyboard* kb,ui* System_ui);
+    bool add_order(order);
+    void show_orders();
+    bool remov_order(order_sequance );
+    bool modify_order( order_sequance numb);
 
 };
+extern order_manage* om;
 

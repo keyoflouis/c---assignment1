@@ -17,7 +17,7 @@ menu::~menu()
 {
 }
 
-void menu::show_menu(vector<menu_item> manage,file* fl)
+void menu::show_menu(vector<menu_item> manage)
 {
     // depend on the way of store a menu_item 
     manage=fl->load_menu();
@@ -31,7 +31,7 @@ void menu::show_menu(vector<menu_item> manage,file* fl)
 
 }
 
-int menu::add_menu(menu_item temp_add,file* fl,keyboard* kb)
+int menu::add_menu(menu_item temp_add)
 {
     cout<<"Enter the name ,price,  of the dish you want to add to the"<<endl;
     char *name;
@@ -46,7 +46,7 @@ int menu::add_menu(menu_item temp_add,file* fl,keyboard* kb)
     return 0;
 }
 
-int menu::remov_menu(char name[64],file* fl,keyboard* kb,ui *System_ui)
+int menu::remov_menu(char name[64])
 {
     menu_manage=fl->load_menu();
     for (int i = 0; i < menu_manage.size(); i++)
@@ -58,7 +58,7 @@ int menu::remov_menu(char name[64],file* fl,keyboard* kb,ui *System_ui)
         {
             menu_manage.erase(menu_manage.begin()+i);
             fl->addtofile_Menu();
-        }else if(temp=50){
+        }else if(temp==50){
             return 1;
         }else{  
         }
@@ -71,7 +71,7 @@ int menu::remov_menu(char name[64],file* fl,keyboard* kb,ui *System_ui)
     return 0;
 }
 
-int menu::modify_menu(char* Name,file* fl,keyboard* kb,ui *System_ui)
+int menu::modify_menu(char* Name)
 {   
     menu_manage=fl->load_menu();
     for (int i = 0; i < menu_manage.size(); i++)
@@ -84,18 +84,19 @@ int menu::modify_menu(char* Name,file* fl,keyboard* kb,ui *System_ui)
             {
                 temp=kb->get_for_choose();
             }
-            
+            char* temp_49;
+            int temp_50;
             switch (temp)
             {
             case 49:
             // modify name
                 cout<<" modifying the menu name"<<endl;
-                char* temp_in=kb->get_consol();
+                strcpy(temp_49,kb->get_consol());
                 menu_manage=fl->load_menu();
                 for (int i = 0; i < menu_manage.size(); i++)
                 {
                     if(strcmp(menu_manage[i].name,Name)==0){
-                    strcpy(menu_manage[i].name ,temp_in);
+                    strcpy(menu_manage[i].name ,temp_49);
                     break;
                     }
                 }
@@ -106,15 +107,15 @@ int menu::modify_menu(char* Name,file* fl,keyboard* kb,ui *System_ui)
             case 50:
             // modify price
                 cout<<" modifying the menu price"<<endl;
-                int temp_in1;
-                cin>>temp_in1;
+               
+                cin>>temp_50;
                 getchar();
 
                 menu_manage=fl->load_menu();
                 for (int i = 0; i < menu_manage.size(); i++)
                 {
                     if(strcmp(menu_manage[i].name,Name)==0){
-                        menu_manage[i].price =temp_in1;
+                        menu_manage[i].price =temp_50;
                     break;
                     }
                 }

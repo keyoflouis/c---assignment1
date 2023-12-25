@@ -13,3 +13,4 @@ public:
     int get_for_choose();
     char* get_consol();
 };
+extern keyboard* kb;

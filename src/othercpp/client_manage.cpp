@@ -15,7 +15,7 @@ clients_manage::~clients_manage()
 
 
 
-bool clients_manage::sign_up(ui* System_ui,keyboard* kb,file* fl)
+bool clients_manage::sign_up()
 {
     // sign up
     System_ui->if_Signup();
@@ -47,7 +47,7 @@ bool clients_manage::sign_up(ui* System_ui,keyboard* kb,file* fl)
     return false;
 }
 
-bool clients_manage::sign_in(client the_client ,ui* System_ui,keyboard* kb,file* fl)
+bool clients_manage::sign_in(client the_client )
 {
     System_ui->type_your_password();
     if(strcmp(kb->get_consol(),the_client.Password)==0){
@@ -56,7 +56,7 @@ bool clients_manage::sign_in(client the_client ,ui* System_ui,keyboard* kb,file*
 }
 }
 
-bool clients_manage::remove(char id[64],ui* System_ui,keyboard* kb,file* fl)
+bool clients_manage::remove(char id[64])
 {
     client_manage_v=fl->load_client();
     for (int i = 0; i < client_manage_v.size(); i++)
@@ -70,7 +70,7 @@ bool clients_manage::remove(char id[64],ui* System_ui,keyboard* kb,file* fl)
     return false;
 }
 
-bool clients_manage::modify(char id[64],ui* System_ui,keyboard* kb,file* fl)
+bool clients_manage::modify(char id[64])
 {
     
     client_manage_v=fl->load_client();
@@ -92,11 +92,11 @@ bool clients_manage::modify(char id[64],ui* System_ui,keyboard* kb,file* fl)
             // modify id
                 cout<<" modifying your id"<<endl;
                 char temp[64];
-                temp==kb->get_consol();
+                strcpy_s(temp,kb->get_consol());
                if( fl->is_has_id_forclient(temp)){
                 cout<<"this id is already there,try another one"<<endl;
                }else{
-                strcpy(client_manage_v[i].ID ,temp);
+                strcpy_s(client_manage_v[i].ID ,temp);
 
                }
 
@@ -105,18 +105,18 @@ bool clients_manage::modify(char id[64],ui* System_ui,keyboard* kb,file* fl)
             case 50:
             // modify name
                 cout<<" modifying your name"<<endl;
-                char temp[64];
-                temp==kb->get_consol();
-                strcpy(client_manage_v[i].Name,temp);
+                char temp_case50[64];
+                strcpy(temp_case50,kb->get_consol());
+                strcpy(client_manage_v[i].Name,temp_case50);
 
                 break;
             case 51:
             // modify password
 
                 cout<<" modifying your password"<<endl;
-                char temp[64];
-                temp==kb->get_consol();
-                strcpy(client_manage_v[i].Password,temp);
+                char temp_case51[64];
+                strcpy(temp_case51, kb->get_consol());
+                strcpy(client_manage_v[i].Password,temp_case51);
                 break;
 
             case 52:
@@ -136,14 +136,14 @@ bool clients_manage::modify(char id[64],ui* System_ui,keyboard* kb,file* fl)
     return true;
 }
 
-void clients_manage::show_client(char *id,ui* System_ui,keyboard* kb,file* fl)
+void clients_manage::show_client(char *id)
 {
     client temp=fl->find_client(id);
     cout<<temp.ID<<" "<<temp.Name<<" "<<temp.Password<<endl;
     return ;
 }
 
-void clients_manage::show_client(ui* System_ui,keyboard* kb,file* fl)
+void clients_manage::show_client()
 {
     for (int i = 0; i < client_manage_v.size(); i++)
     {

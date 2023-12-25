@@ -89,9 +89,9 @@ system("cls");
 	cout << "\t\t---------------------------------" << endl;
 }
 
-void ui::menu_ui(menu* menus,vector<menu_item> vector_menu ,file* fl)
+void ui::menu_ui(vector<menu_item> vector_menu)
 {
-	menus->show_menu(vector_menu ,fl);
+	menus->show_menu(vector_menu );
 	
 }
 

@@ -14,13 +14,13 @@ order_manage::~order_manage()
 {
 }
 
-bool order_manage::add_order(file *fl, order od) 
+bool order_manage::add_order( order od) 
 {
     fl->addtofile_order(od);
     return false;
 }
 
-void order_manage::show_orders(file *fl)
+void order_manage::show_orders()
 {
     order_manage_v=fl->load_order();
      // depend on the way of store a menu_item 
@@ -28,18 +28,18 @@ void order_manage::show_orders(file *fl)
     for (int i = 0; i < order_manage_v.size(); i++)
     {
         
-        cout<<order_manage_v[i].who_id<<" "<<order_manage_v[i].menu_item_name<<" "<<order_manage_v[i].order_number.time<<" "<<order_manage_v[i].order_number.sequance<<endl;
+        cout<<order_manage_v[i].who_id<<" "<<order_manage_v[i].menu_item_name<<" "<<order_manage_v[i].order_number->time<<" "<<order_manage_v[i].order_number->sequance<<endl;
     }
     return ;
 
 }
 
-bool order_manage::remov_order(file *fl,order_sequance numb)
+bool order_manage::remov_order(order_sequance numb)
 {
     order_manage_v=fl->load_order();
     for (int i = 0; i < order_manage_v.size(); i++)
     {
-        if(order_manage_v[i].order_number==numb){
+        if(*(order_manage_v[i].order_number)==numb){
             order_manage_v.erase(order_manage_v.begin()+i);
         }
     }
@@ -47,12 +47,12 @@ bool order_manage::remov_order(file *fl,order_sequance numb)
     return false;
 }
 
-bool order_manage::modify_order(file *fl, order_sequance numb,keyboard* kb,ui* System_ui)
+bool order_manage::modify_order(order_sequance numb)
 {
   order_manage_v=fl->load_order();
     for (int i = 0; i < order_manage_v.size(); i++)
     {
-        if(order_manage_v[i].order_number==numb){
+        if(*(order_manage_v[i].order_number)==numb){
             cout<<"\t\t choos what to modify"<<endl;
             System_ui->choos_modify_order();
 

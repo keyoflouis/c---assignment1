@@ -50,3 +50,5 @@ public:
     bool write_to_order(vector<order> temp);
     
 };
+
+extern file* fl;

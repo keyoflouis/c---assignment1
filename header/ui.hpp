@@ -24,7 +24,7 @@ public:
     void remov_menu_ui(char *temp);
     
 
-    void menu_ui(menu* menus ,vector<menu_item> vector_menu ,file* fl);
+    void menu_ui(vector<menu_item> vector_menu );
     void checkout_ui();
     void modify_menu_ui();
 
@@ -37,5 +37,6 @@ public:
     void choos_modify_order();
 };
 
+extern ui* System_ui;
 /*the basic logic is sign in ,password, operat_menu , menu,checkout_ui*/
 /*                         or if_Signup ,password ,,,,   sign in      */
