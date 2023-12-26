@@ -1,6 +1,6 @@
-#include"keyboard.hpp"
-#include<iostream>
-#include<conio.h>
+#include "keyboard.hpp"
+#include <iostream>
+#include <conio.h>
 using namespace std;
 
 keyboard::keyboard(/* args */)
@@ -14,18 +14,19 @@ keyboard::~keyboard()
 
 int keyboard::get_for_choose()
 {
-    
-	while(true){
+
+	while (true)
+	{
 		if (kbhit())
 		{
-            return getch();
+			return getch();
 		}
 	}
 }
 
-char* keyboard::get_consol()
+char *keyboard::get_consol()
 {
-    cin>>kb_in;
+	cin >> kb_in;
 	getchar();
-    return kb_in;
+	return kb_in;
 }
