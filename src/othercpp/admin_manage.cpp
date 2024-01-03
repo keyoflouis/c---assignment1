@@ -145,6 +145,7 @@ void admin_manage::manage_menu_ad()
 	cout << "\t\t| 2.modify menu				 |" << endl;
 	cout << "\t\t| 3.delete menu				 |" << endl;
     cout << "\t\t| 4.display menu			     |" << endl;
+    cout << "\t\t| 5.quite      			     |" << endl;
 	cout << "\t\t---------------------------------" << endl;
 
     int tempi = kb->get_for_choose();
@@ -170,7 +171,7 @@ void admin_manage::manage_menu_ad()
         menus->show_menu();
         break;
     case 53:
-        // quite
+        return ;
         break;
     default:
         break;
@@ -210,6 +211,7 @@ void admin_manage::admin_manage_choose()
         case 51:
             // manage menu
             am->manage_menu_ad();
+            break;
         default:
             return;
             break;

@@ -8,13 +8,19 @@ private:
 
 public:
     char Time[64];
-    int sequance;
+    unsigned int sequance;
+    time_t the_Time ;
 
     order_sequance():sequance(0)
     {
         time_t now = time(0);
+        the_Time = now;
+
         char dt[64];
+
         ctime_s(dt, 64, &now);
+        dt[strcspn(dt, "\n")] = 0;
+
         strcpy_s(this->Time, dt);
     }
 

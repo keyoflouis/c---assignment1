@@ -80,7 +80,7 @@ vector<client> file::load_client()
 {
   client temp;
   fstream menu_file(client_filepath, ios::in | ios::binary);
-
+  client_manage.clear();
   while (menu_file.read((char *)&temp, sizeof(temp)))
   {
     client_manage.push_back(temp);
@@ -92,8 +92,9 @@ vector<client> file::load_client()
 
 bool file::write_to_client(vector<client> temp1)
 {
-  client_manage = temp1;
-  fstream temp(client_filepath, ios::out | ios::binary);
+    client_manage.clear();
+    client_manage = temp1;
+    fstream temp(client_filepath, ios::out | ios::binary);
   for (int i = 0; i < client_manage.size(); i++)
   {
     temp.write((char *)&client_manage[i], sizeof(client));
@@ -106,7 +107,7 @@ vector<menu_item> file::load_menu()
 {
   menu_item temp;
   fstream menu_file(menu_filepath, ios::in | ios::binary);
-
+  menu_manage.clear();
   while (menu_file.read((char *)&temp, sizeof(temp)))
   {
     menu_manage.push_back(temp);

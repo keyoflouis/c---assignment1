@@ -4,6 +4,8 @@
 #include "file.hpp"
 #include "client.hpp"
 #include <string.h>
+#include<vector>
+using namespace std;
 
 clients_manage::clients_manage(/* args */)
 {
@@ -72,6 +74,7 @@ bool clients_manage::remove()
 
     char id[64];
     strcpy(id, kb->get_consol());
+    client_manage_v.clear();
     client_manage_v = fl->load_client();
 
     for (int i = 0; i < client_manage_v.size(); i++)
@@ -92,14 +95,20 @@ bool clients_manage::remove()
 bool clients_manage::modify()
 {
     cout << "type in the id" << endl;
-    ;
+
 
     char id[64];
     strcpy(id, kb->get_consol());
+
+    client_manage_v.clear();
     client_manage_v = fl->load_client();
-    for (int i = 0; i < client_manage_v.size(); i++)
+
+    vector<client>::iterator i = client_manage_v.begin();
+
+    while (i!=client_manage_v.end())
     {
-        if (strcmp(client_manage_v[i].ID, id) == 0)
+
+        if (strcmp(i->ID, id) == 0)
         {
 
             System_ui->modify_clientui();
@@ -123,7 +132,7 @@ bool clients_manage::modify()
                 }
                 else
                 {
-                    strcpy_s(client_manage_v[i].ID, temp);
+                    strcpy_s(i->ID, temp);
                 }
 
                 break;
@@ -131,8 +140,8 @@ bool clients_manage::modify()
                 // modify name
                 cout << " modifying your name" << endl;
                 char temp_case50[64];
-                strcpy(temp_case50, kb->get_consol());
-                strcpy(client_manage_v[i].Name, temp_case50);
+                strcpy_s(temp_case50, kb->get_consol());
+                strcpy_s(i->Name, temp_case50);
 
                 break;
             case 51:
@@ -140,8 +149,8 @@ bool clients_manage::modify()
 
                 cout << " modifying your password" << endl;
                 char temp_case51[64];
-                strcpy(temp_case51, kb->get_consol());
-                strcpy(client_manage_v[i].Password, temp_case51);
+                strcpy_s(temp_case51, kb->get_consol());
+                strcpy_s(i->Password, temp_case51);
                 break;
 
             case 52:
@@ -157,7 +166,9 @@ bool clients_manage::modify()
         else
         {
             cout << "cant find" << endl;
+           
         }
+        i++;
     }
     fl->write_to_client(client_manage_v);
     return true;
@@ -172,9 +183,14 @@ void clients_manage::show_client(char *id)
 
 void clients_manage::show_client()
 {
+    client_manage_v.clear();
+    client_manage_v=fl->load_client();
+    cout << "ID:" << " " << "Name" << " " << "Password" << endl;
     for (int i = 0; i < client_manage_v.size(); i++)
     {
         cout << client_manage_v[i].ID << " " << client_manage_v[i].Name << " " << client_manage_v[i].Password << endl;
     }
+    cout << ": ";
+    getchar();
     return;
 }

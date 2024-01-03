@@ -78,9 +78,9 @@ void ui::operat_menu_for_client() {
 	cout << endl;
 	cout << "\t\t---------------------------------" << endl;
 	cout << "\t\t|          1. Order             |" << endl;
-	cout << "\t\t|          2.	.		|" << endl;
-	cout << "\t\t|          3. Quit              |" << endl;
-	cout << "\t\t|                               |" << endl;
+	cout << "\t\t|          2. Check my order 	 |" << endl;
+	cout << "\t\t|          3. cancel order      |" << endl;
+	cout << "\t\t|          4. quite             |" << endl;
 	cout << "\t\t|                               |" << endl;
 	cout << "\t\t---------------------------------" << endl;
 }

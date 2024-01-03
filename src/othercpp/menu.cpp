@@ -27,6 +27,7 @@ void menu::show_menu()
     {
         cout << manage[i].name << "    " << manage[i].price << endl;
     }
+    cout << "Enter to continue:" << endl;
     getchar();
     return;
 }
@@ -82,8 +83,9 @@ int menu::modify_menu()
     cout << "modifying menu , type in the name " << endl;
     char Name[64];
     strcpy(Name, kb->get_consol());
-
+    menu_manage.clear();
     menu_manage = fl->load_menu();
+
     for (int i = 0; i < menu_manage.size(); i++)
     {
         if (strcmp(menu_manage[i].name, Name) == 0)
@@ -96,24 +98,27 @@ int menu::modify_menu()
                 temp = kb->get_for_choose();
             }
             
-            char *temp_49;
+            char temp_49[64];
             int temp_50;
+            vector<menu_item>::iterator i = menu_manage.begin();
+
             switch (temp)
             {
             case 49:
                 // modify name
                 cout << " modifying the menu name" << endl;
                 strcpy(temp_49, kb->get_consol());
-                menu_manage = fl->load_menu();
-                for (int i = 0; i < menu_manage.size(); i++)
+
+
+                while (i!=menu_manage.end())
                 {
-                    if (strcmp(menu_manage[i].name, Name) == 0)
+                    if (strcmp(i->name, Name) == 0)
                     {
-                        strcpy(menu_manage[i].name, temp_49);
+                        strcpy(i->name, temp_49);
                         break;
                     }
+                    i++;
                 }
-
                 fl->write_to_menu(menu_manage);
                 break;
 
@@ -122,17 +127,17 @@ int menu::modify_menu()
                 cout << " modifying the menu price" << endl;
 
                 cin >> temp_50;
-                getchar();
-
-                menu_manage = fl->load_menu();
-                for (int i = 0; i < menu_manage.size(); i++)
+                while (i!=menu_manage.end())
                 {
-                    if (strcmp(menu_manage[i].name, Name) == 0)
+                    if (strcmp(i->name, Name) == 0)
                     {
-                        menu_manage[i].price = temp_50;
+                        i->price = temp_50;
                         break;
                     }
+                    i++;
                 }
+                fl->write_to_menu(menu_manage);
+                break;
 
             default:
                 return true;
@@ -151,6 +156,7 @@ int menu::modify_menu()
 
 menu_item menu::match(int numb)
 {
+    menu_manage.clear();
     menu_manage=fl->load_menu();
     return menu_manage[numb];
 }

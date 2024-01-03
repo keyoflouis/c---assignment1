@@ -18,5 +18,7 @@ public:
     bool order_c();
     void client_start();
     bool take_order();
+    void check_my_order();
+     bool cancel_order();
 };
 extern client global_client;
