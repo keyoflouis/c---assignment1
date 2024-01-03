@@ -36,9 +36,9 @@ bool clients_manage::sign_up()
         cin >> temp_password;
         getchar();
         
-        if (fl->is_has_id_forclient(temp_id))
+        if (fl->is_id_forclient(temp_id))
         {
-            cout << "id repeat error" << endl;
+            cout << "ID 重复" << endl;
         }
         else
         {
@@ -54,23 +54,33 @@ bool clients_manage::sign_up()
 
 bool clients_manage::sign_in()
 {
-    char *type_in1;
+    char* type_in1;
     System_ui->signin_signup_ID();
     type_in1 = kb->get_consol();
-    global_client = fl->find_client(type_in1);
-
-    System_ui->type_your_password();
-    if (strcmp(kb->get_consol(), global_client.Password) == 0)
+    if (fl->is_id_forclient( type_in1))
     {
-        cout << "ok" << endl;
-        return true;
+        global_client = fl->find_client(type_in1);
+        System_ui->type_your_password();
+
+        if (strcmp(kb->get_consol(), global_client.Password) == 0)
+        {
+            cout << "ok" << endl;
+            return true;
+        }
+        else
+        {
+            cout << "密码错误" << endl;
+            getchar();
+        }
     }
+  
+    return false;
 }
 
 bool clients_manage::remove()
 {
     system("cls");
-    cout << "\t\t the id:" << endl;
+    cout << "\t\t 输入要删除的ID" << endl;
 
     char id[64];
     strcpy(id, kb->get_consol());
@@ -83,18 +93,20 @@ bool clients_manage::remove()
         {
             client_manage_v.erase(client_manage_v.begin() + i);
             fl->write_to_client(client_manage_v);
+            system("cls");
+            cout << "\n\t\t 移除成功" << endl;
             return true;
         }
     }
 
-    cout << "cant finde " << id << endl;
+    cout << "找不到" << id << endl;
     getchar();
     return false;
 }
 
 bool clients_manage::modify()
 {
-    cout << "type in the id" << endl;
+    cout << "输入要修改的ID" << endl;
 
 
     char id[64];
@@ -123,22 +135,26 @@ bool clients_manage::modify()
             {
             case 49:
                 // modify id
-                cout << " modifying your id" << endl;
+                system("cls");
+                cout << "\n\t\t 正在修改id号" << endl;
                 char temp[64];
                 strcpy_s(temp, kb->get_consol());
-                if (fl->is_has_id_forclient(temp))
+                if (fl->is_id_forclient(temp))
                 {
-                    cout << "this id is already there,try another one" << endl;
+                    cout << "\t\t 这个ID号已经存在，请尝试重新输入" << endl;
+                    kb->get_for_choose();
                 }
                 else
                 {
                     strcpy_s(i->ID, temp);
+                    cout << "\t\t 修改成功" << endl;
                 }
 
                 break;
             case 50:
                 // modify name
-                cout << " modifying your name" << endl;
+                system("cls");
+                cout << "\n\t\t 正在修改账户名称" << endl;
                 char temp_case50[64];
                 strcpy_s(temp_case50, kb->get_consol());
                 strcpy_s(i->Name, temp_case50);
@@ -146,17 +162,12 @@ bool clients_manage::modify()
                 break;
             case 51:
                 // modify password
-
-                cout << " modifying your password" << endl;
+                system("cls");
+                cout << "\n\t\t 正在修改密码" << endl;
                 char temp_case51[64];
                 strcpy_s(temp_case51, kb->get_consol());
                 strcpy_s(i->Password, temp_case51);
                 break;
-
-            case 52:
-                return true;
-                break;
-
             default:
                 return true;
                 break;
@@ -165,7 +176,7 @@ bool clients_manage::modify()
         }
         else
         {
-            cout << "cant find" << endl;
+            cout << "\n\t\t 找不到" << endl;
            
         }
         i++;
@@ -190,7 +201,7 @@ void clients_manage::show_client()
     {
         cout << client_manage_v[i].ID << " " << client_manage_v[i].Name << " " << client_manage_v[i].Password << endl;
     }
-    cout << ": ";
-    getchar();
+    cout << "\n\t\t 按任意键继续 ";
+    kb->get_for_choose();
     return;
 }

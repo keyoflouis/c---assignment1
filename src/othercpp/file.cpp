@@ -40,7 +40,7 @@ bool file::addtofile_Client(client temp)
   return true;
 }
 
-bool file::is_has_id_forclient(const char *in_id)
+bool file::is_id_forclient(const char *in_id)
 {
   fstream client_file(client_filepath, ios::in | ios::binary);
   /*get each line from the clients.txt */
@@ -74,6 +74,7 @@ client file::find_client(const char *in_id)
   }
 
   client_file.close(); // cout<<client_manage[i].ID<<client_manage[i].Name<<client_manage[i].Password<<endl;
+  return client();
 }
 
 vector<client> file::load_client()

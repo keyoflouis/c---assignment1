@@ -24,23 +24,21 @@ bool admin_manage::sign_in()
 
     if (fl->is_has_id_foradmin(from_consol_to_sign_in_admin))
     {
-        system("cls");
-        cout << "\t\t---------------------------------" << endl;
-        cout << "\t\t type in your id:" << endl;
-        cout << "\t\t---------------------------------" << endl;
-
-        strcpy(from_consol_to_sign_in_admin, kb->get_consol());
         admin the_admin = fl->find_admin(from_consol_to_sign_in_admin);
 
         system("cls");
         cout << "\t\t---------------------------------" << endl;
-        cout << "\t\t type in your password:" << endl;
+        cout << "\t\t ÊäÈëÄãµÄÃÜÂë:" << endl;
         cout << "\t\t---------------------------------" << endl;
 
         strcpy(from_consol_to_sign_in_admin, kb->get_consol());
         if (strcmp(from_consol_to_sign_in_admin, the_admin.Password) == 0)
         {
             return true;
+        }
+        else
+        {
+            return false;
         }
     }
     else
@@ -141,11 +139,11 @@ void admin_manage::manage_menu_ad()
 {
     system("cls");
 	cout << "\t\t---------------------------------" << endl;
-	cout << "\t\t| 1.add menu                    |" << endl;
-	cout << "\t\t| 2.modify menu				 |" << endl;
-	cout << "\t\t| 3.delete menu				 |" << endl;
-    cout << "\t\t| 4.display menu			     |" << endl;
-    cout << "\t\t| 5.quite      			     |" << endl;
+	cout << "\t\t|         1.Ìí¼Ó²Ëµ¥            |" << endl;
+	cout << "\t\t|         2.ÐÞ¸Ä²Ëµ¥            |" << endl;
+	cout << "\t\t|         3.É¾³ý²Ëµ¥            |" << endl;
+    cout << "\t\t|         4.²é¿´²Ëµ¥            |" << endl;
+    cout << "\t\t|         5.ÍË³ö                |" << endl;
 	cout << "\t\t---------------------------------" << endl;
 
     int tempi = kb->get_for_choose();
@@ -186,7 +184,8 @@ void admin_manage::admin_start()
     }
     else
     {
-        cout << "\t\t password worn" << endl;
+        cout << "\t\t ÃÜÂë´íÎó" << endl;
+        return;
     }
 }
 

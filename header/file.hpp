@@ -28,7 +28,7 @@ public:
     fstream openFile(const char *filepath);
 
     bool addtofile_Client(client temp);
-    bool is_has_id_forclient(const char *in_id); // if is return true , else false
+    bool is_id_forclient(const char *in_id); // if is return true , else false
     client find_client(const char *input_id);
     vector<client> load_client();
     bool write_to_client(vector<client> temp);

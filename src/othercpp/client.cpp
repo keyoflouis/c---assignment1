@@ -44,12 +44,6 @@ bool client::order_c()
 
 void client::client_start()
 {
-    char *type_in1;
-    System_ui->signin_signup_ID();
-    type_in1 = kb->get_consol();
-    if (fl->is_has_id_forclient(type_in1))
-    {
-        // sign in
         if (cm->sign_in())
         {
             while (true)
@@ -76,31 +70,47 @@ void client::client_start()
             }
             
         }
-    }
-    else
-    {
-        cm->sign_up();
-    }
+        else
+        {
+            cm->sign_up();
+        }
 }
 
 bool client::take_order()
 {
-    int for_match_menu_item;
-    menus->show_menu();
-
-    cin >> for_match_menu_item ;
-    menus->menu_manage.clear();
-    menus->menu_manage = fl->load_menu();
-
-    if (for_match_menu_item < menus->menu_manage.size()+1)
+    while (true)
     {
-        order od(global_client.ID, menus->match(for_match_menu_item-1).name);
-        return om->add_order(od);
+        int for_match_menu_item;
+        system("cls");
+        menus->show_menu();
+
+        cout << "\n输入你想要点的菜的序号：" << endl;
+        cin >> for_match_menu_item;
+        menus->menu_manage.clear();
+        menus->menu_manage = fl->load_menu();
+
+        if (for_match_menu_item < menus->menu_manage.size() + 1)
+        {
+            order od(global_client.ID, menus->match(for_match_menu_item - 1).name);
+            return om->add_order(od);
+        }
+        else
+        {
+            system("cls");
+            cout << "\t\t没有这个菜,是否重新点菜？" << endl;
+            cout << "\t\t 1.是   2.否             " << endl;
+            int choose=kb->get_for_choose();
+            if (choose==(int)'y'||choose==(int)'Y'||choose==(int)'1')
+            {
+            }
+            else
+            {
+                return false;
+            }
+                
+        }
     }
-    else
-    {
-        return false;
-    }
+    
 }
 
 void client::check_my_order()
@@ -108,23 +118,28 @@ void client::check_my_order()
     om->order_manage_v.clear();
     om->order_manage_v =fl->load_order();
     vector<order>::iterator i =om-> order_manage_v.begin();
+
+    system("cls");
+    cout << "\n\t\t 我的订单" << endl;
     while (i!=om->order_manage_v.end())
     {
         if(strcmp( i->who_id, global_client.ID)==0){
-           cout << i->who_id << " " << i->menu_item_name << " " << i->order_number.Time << " " << i->order_number.sequance << endl;
+           cout << "\t\t " << i->who_id << " " << i->menu_item_name << " " << i->order_number.Time << " " << i->order_number.sequance << endl;
         }
         i++;
     }
-    getchar();
+    cout << "\n\t\t 按下任意键继续" << endl;
+    kb->get_for_choose();
     
 }
 
 bool client::cancel_order()
 {
     system("cls");
-    cout << "If the order is more than 5 minutes old, the cancellation of the order fails" << endl;
-    cout << "if that please call the administor to cancel the order" << endl;
-    getchar();
+    cout << "如果下单时间到现在超过5分钟的订单，请联系管理员：" << endl;
+    cout << " 2111110"<<endl;
+    cout << "\n按任意键继续" << endl;
+    kb->get_for_choose();
     system("cls");
 
     order_sequance manage_order_check_by_order_sequance;
@@ -133,15 +148,13 @@ bool client::cancel_order()
     while (true)
     {
         this->check_my_order();
-        cout << "\t\t type in the order_numb time" << endl;
+        cout << "\n\t\t 输入想要取消的订单时间" << endl;
         getline(cin, for_pattern);
         if (regex_match(for_pattern, pattern)) {
-            cout << "formate correct" << endl;
-
 
             this->check_my_order();
             strcpy(manage_order_check_by_order_sequance.Time, for_pattern.c_str());
-            cout << "\t\t type in the order_numb squance" << endl;
+            cout << "\t\t 输入订单序号" << endl;
             cin >> manage_order_check_by_order_sequance.sequance;
             getchar();
 
@@ -161,16 +174,21 @@ bool client::cancel_order()
                         if ((now_temp.the_Time - i->order_number.the_Time) < 300) {
                             // only cancel the order automatly when the time less than 5 min;
                             om->order_manage_v.erase(i);
-                            cout << "canceled the order" << endl;
-                            getchar();
+                            system("cls");
+                            cout << "\n\t\t 成功取消订单" << endl;
+                            cout << "\n\t\t 按下任意键继续" << endl;
+                            kb->get_for_choose();
                             return true;
                             break;
                         }
                         else
                         {
-                            cout << "you need to phone the administor" << endl;
-                            cout << "11111111" << endl;
-                            getchar();
+                            system("cls");
+                            cout << "\n\tt 订单超过5分钟，请联系管理员" << endl;
+                            cout << "\t\t 11111111" << endl;
+                            cout << "\t\t 按下任意键继续" << endl;
+                            kb->get_for_choose();
+                            
                         }
 
                     }
@@ -181,23 +199,21 @@ bool client::cancel_order()
                 i++;
             }
             fl->write_to_order(om->order_manage_v);
-            return false;
-
             
         }
         else
         {
-            cout << "formate error" << endl;
-            cout << "again or return to the operate menu" << endl;
-            cout << "y or n" << endl;
+            cout << "\n\t\t 格式错误" << endl;
+            cout << "\t\t 再试一遍？" << endl;
+            cout << "\t\t y or n" << endl;
             int temp = kb->get_for_choose();
 
-            if (temp == (int)'y' || temp == 'Y') {
-                return false;
+            if (temp == (int)'y' || temp == 'Y'||temp==(int)'1') {
+               
             }
-            else if (temp == (int)'n' || temp == 'N')
+            else if (temp == (int)'n' || temp == 'N'||temp==(int)'2')
             {
-                break;
+                return false;
             }
         }
     }
