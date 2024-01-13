@@ -121,6 +121,9 @@ void client::check_my_order()
 
     system("cls");
     cout << "\n\t\t 我的订单" << endl;
+    cout << "\n\t\t---------------------------------------------------" << endl;
+
+    cout << "\t\t ID" << "           " <<"菜名"<<"     "<<"时间及序号" << endl;
     while (i!=om->order_manage_v.end())
     {
         if(strcmp( i->who_id, global_client.ID)==0){
@@ -178,6 +181,7 @@ bool client::cancel_order()
                             cout << "\n\t\t 成功取消订单" << endl;
                             cout << "\n\t\t 按下任意键继续" << endl;
                             kb->get_for_choose();
+                            fl->write_to_order(om->order_manage_v);
                             return true;
                             break;
                         }

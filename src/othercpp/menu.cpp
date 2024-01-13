@@ -46,10 +46,12 @@ int menu::add_menu()
 
     int price;
     cin >> price;
-    fl-> menu_for_add.push_back(menu_item(name, price));
+    menu_manage.clear();
+    menu_manage= fl->load_menu();
+    menu_manage.push_back(menu_item(name, price));
 
 
-    fl->addtofile_Menu();
+    fl->write_to_menu(menu_manage);
     system("cls");
     cout << "\n\t\t 添加成功" << endl;
     cout << "\n 按下任意键继续:" << endl;

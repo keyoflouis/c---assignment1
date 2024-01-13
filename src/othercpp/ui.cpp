@@ -17,6 +17,7 @@ void ui::firstPage()
 
 	system("cls");
 	cout << endl;
+	cout << "\t\t 绝世皇鸭点餐管理系统" << endl;
 	cout << "\t\t---------------------------------" << endl;
 	cout << "\t\t|  1. 客户登录/注册             |" << endl;
 	cout << "\t\t|  2. 管理员                    |" << endl;
